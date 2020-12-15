@@ -1,10 +1,10 @@
 package com.cursospringboot.spring_boot.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Categoria implements Serializable {
     public static final long serialVersionUID=1L;
@@ -12,6 +12,10 @@ public class Categoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @ManyToMany(mappedBy = "categorias")
+    private List<Produto> produtos=new ArrayList<>();
+
+
 
     public Categoria() {
     }
@@ -19,6 +23,13 @@ public class Categoria implements Serializable {
     public Categoria(Long id, String name) {
         this.id = id;
         this.name = name;
+    }
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 
     public Long getId() {
