@@ -1,0 +1,29 @@
+[33mcommit ddb92abfe755de6adf5bb5ae88784aef2a7a6334[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: adeliovdlk <adelioa.c@gmai.com>
+Date:   Tue Dec 15 08:53:08 2020 -0300
+
+    criando repository e service para categoria
+
+[33mcommit b6a87c73d1887372a03f91fc44890e68c6a708eb[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: adeliovdlk <adelioa.c@gmai.com>
+Date:   Mon Dec 14 11:01:17 2020 -0300
+
+    Banco de dados H2 e criacao automaticao da base de dados
+
+[33mcommit fabb209804f951e38616790ecb7055e9419a9799[m
+Author: adeliovdlk <adelioa.c@gmai.com>
+Date:   Mon Dec 14 10:02:25 2020 -0300
+
+    Testando a primeira clase de dominio
+
+[33mcommit e0bcc2049b0cee497c991cbca76c279df92f6b85[m
+Author: adeliovdlk <adelioa.c@gmai.com>
+Date:   Mon Dec 14 09:07:36 2020 -0300
+
+    Rest testado
+
+[33mcommit 9db80e0b2615fdebd956f9b4be689c06b0e71768[m
+Author: adeliovdlk <adelioa.c@gmai.com>
+Date:   Mon Dec 14 08:37:37 2020 -0300
+
+    projeto criado
