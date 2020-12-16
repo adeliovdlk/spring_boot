@@ -1,13 +1,8 @@
 package com.cursospringboot.spring_boot;
 
-import com.cursospringboot.spring_boot.domain.Categoria;
-import com.cursospringboot.spring_boot.domain.Cidade;
-import com.cursospringboot.spring_boot.domain.Produto;
-import com.cursospringboot.spring_boot.repositories.CategoriaRepository;
-import com.cursospringboot.spring_boot.domain.Estado;
-import com.cursospringboot.spring_boot.repositories.CidadeRepository;
-import com.cursospringboot.spring_boot.repositories.EstadoRepository;
-import com.cursospringboot.spring_boot.repositories.ProdutoRepository;
+import com.cursospringboot.spring_boot.domain.*;
+import com.cursospringboot.spring_boot.domain.enums.TipoCliente;
+import com.cursospringboot.spring_boot.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,6 +21,11 @@ public class Application implements CommandLineRunner {
 	private CidadeRepository cidadeRepository;
 	@Autowired
 	private EstadoRepository estadoRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -66,6 +66,21 @@ public class Application implements CommandLineRunner {
 		//primeiro salva o estado
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+
+		//estanciado obj cliente
+		Cliente cl1= new Cliente(null,"adelio","adeliogemail.com","225444800144", TipoCliente.PESSOAFISICA);
+		//para por os telefones
+		cl1.getTelefones().addAll(Arrays.asList("35757777","988878888"));
+		//endereco conhece o cliente e cidade
+		Endereco e1= new Endereco(null,"rua das vidas","254","apto 101","vila A","3554777",cl1,c1);
+		Endereco e2= new Endereco(null,"rua sem fim","171","invasao","Centro","987877",cl1,c2);
+
+		//cliente conhecer o endereco
+		cl1.getEnderecos().addAll(Arrays.asList(e1,e2));
+		//para salvar no bd tem criar o repository
+		//quem tem q salvar primeiro
+		clienteRepository.saveAll(Arrays.asList(cl1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
 
 
 	}
