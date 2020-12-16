@@ -1,6 +1,7 @@
 package com.cursospringboot.spring_boot.domain;
 
 import com.cursospringboot.spring_boot.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,9 +21,14 @@ public class Cliente implements Serializable {
     private String email;
     private String cpfOuCnpj;
     private Integer tipo;
-    //
+
+    //o cliente pode serializar o endereco
+    @JsonManagedReference
+
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos= new ArrayList<>();
+
+    //desse jeito pois  telefone e uma entidade fraca
     @ElementCollection
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones= new HashSet<>();

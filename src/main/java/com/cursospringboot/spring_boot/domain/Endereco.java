@@ -1,5 +1,7 @@
 package com.cursospringboot.spring_boot.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -15,7 +17,8 @@ public class Endereco implements Serializable {
     private String complemento;
     private String bairro;
     private String cep;
-
+    // o endereco nao pode serializar o cliente
+    @JsonBackReference
     //um endereco tem uma cidade e um cliente muitos para um
     @ManyToOne
     @JoinColumn(name = "cliente_id")
