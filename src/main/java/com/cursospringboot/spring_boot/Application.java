@@ -1,23 +1,31 @@
 package com.cursospringboot.spring_boot;
 
 import com.cursospringboot.spring_boot.domain.Categoria;
+import com.cursospringboot.spring_boot.domain.Cidade;
 import com.cursospringboot.spring_boot.domain.Produto;
 import com.cursospringboot.spring_boot.repositories.CategoriaRepository;
+import com.cursospringboot.spring_boot.domain.Estado;
+import com.cursospringboot.spring_boot.repositories.CidadeRepository;
+import com.cursospringboot.spring_boot.repositories.EstadoRepository;
 import com.cursospringboot.spring_boot.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.jdbc.core.ColumnMapRowMapper;
 
 import java.util.Arrays;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
+	//criando dependencias
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	@Autowired
+	private CidadeRepository cidadeRepository;
+	@Autowired
+	private EstadoRepository estadoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -42,5 +50,23 @@ public class Application implements CommandLineRunner {
 
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
+
+		Estado est1= new Estado(null,"Parana");
+		Estado est2= new Estado(null,"Ceara");
+
+		//cidades conhecer o estado
+		Cidade c1= new Cidade(null,"Foz do Iguaco",est1);
+		Cidade c2= new Cidade(null,"Medianeira",est1);
+		Cidade c3= new Cidade(null, "Fortaleza",est2);
+
+		//estado conhecer suas cidades
+		est1.getCidades().addAll(Arrays.asList(c1,c2));
+		est2.getCidades().addAll(Arrays.asList(c3));
+
+		//primeiro salva o estado
+		estadoRepository.saveAll(Arrays.asList(est1,est2));
+		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+
+
 	}
 }
