@@ -1,6 +1,7 @@
 package com.cursospringboot.spring_boot;
 
 import com.cursospringboot.spring_boot.domain.*;
+import com.cursospringboot.spring_boot.domain.enums.EstadoPagamento;
 import com.cursospringboot.spring_boot.domain.enums.TipoCliente;
 import com.cursospringboot.spring_boot.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -25,6 +27,10 @@ public class Application implements CommandLineRunner {
 	private ClienteRepository clienteRepository;
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 
 
 	public static void main(String[] args) {
@@ -81,6 +87,33 @@ public class Application implements CommandLineRunner {
 		//quem tem q salvar primeiro
 		clienteRepository.saveAll(Arrays.asList(cl1));
 		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+
+
+		SimpleDateFormat sdf= new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		Pedido ped1=new Pedido(null,sdf.parse("30/09/2017 10:32"),cl1,e1);//estanciado o primeiro pedido
+		Pedido ped2=new Pedido(null,sdf.parse("22/12/1980  18:01"),cl1,e2);//estanciado o segundo pedido
+
+		//estanciar os pagamentos
+
+		Pagamento pagto1= new PagamentoComCartao(null, EstadoPagamento.QUITADO,ped1,6);
+		ped1.setPagamento(pagto1);
+
+		Pagamento pagto2=new PagamentoComBoleto(null, EstadoPagamento.PENDENTE,ped2,sdf.parse("20/12/2017 00:20"),null);
+		ped2.setPagamento(pagto2);
+
+		//associar o cliente cliente1 com os pedidos dele
+		cl1.getPedidos().addAll(Arrays.asList(ped1,ped2));
+
+		//nao e necessario criar repository para subclasses
+
+		// pedido tem ser salvo primeiro para depois o pagamento
+		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pagto1,pagto2));
+
+
+
+
+
 
 
 	}
