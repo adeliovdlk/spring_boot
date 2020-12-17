@@ -3,6 +3,9 @@ package com.cursospringboot.spring_boot.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 public class Pedido implements Serializable {
     public static final long serialVersionUID=1L;
@@ -21,6 +24,18 @@ public class Pedido implements Serializable {
     @ManyToOne
     @JoinColumn(name = "endereco_de_entrega_id")
     private Endereco enderecoDeEntrega;
+    //classe pedido tem q conhecer o itens do pedido associados a ela
+
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemPedido> itens=new HashSet<>();
+
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
+    }
 
     public Pedido() {
     }

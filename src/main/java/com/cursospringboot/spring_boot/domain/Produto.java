@@ -2,9 +2,8 @@ package com.cursospringboot.spring_boot.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.*;
 
-import java.util.List;
 @Entity
 public class Produto implements Serializable {
     public static final long serialVersionUID=1L;
@@ -21,6 +20,12 @@ public class Produto implements Serializable {
     )
     private List<Categoria> categorias= new ArrayList<>();
 
+    //para q o produto tbm conheca os itens associados a ele
+    @OneToMany(mappedBy = "id.produto")
+    private Set<ItemPedido> itens=new HashSet<>();
+
+
+
     public Produto() {
 
     }
@@ -29,6 +34,20 @@ public class Produto implements Serializable {
         this.id = id;
         this.name = name;
         this.preco = preco;
+    }
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
+    }
+    public List<Pedido> getPedidos(){
+        List<Pedido> lista = new ArrayList<>();
+        for (ItemPedido x: itens){
+            lista.add(x.getPedido());
+        }
+        return lista;
     }
 
     public Long getId() {
