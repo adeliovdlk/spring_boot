@@ -1,5 +1,7 @@
 package com.cursospringboot.spring_boot.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -9,6 +11,7 @@ import java.io.Serializable;
 public class ItemPedido implements Serializable {
     public static final long serialVersionUID=1L;
     //chave composta contendo o produto e o pedido
+    @JsonIgnore // nao permite q seja serializado  nem o pedido nem o produto
     @EmbeddedId  //id embutido em um tipo auxiliar
     private ItemPedidoPK id=new ItemPedidoPK();
     private Double desconto;
@@ -26,9 +29,11 @@ public class ItemPedido implements Serializable {
         this.quantidade = quantidade;
         this.preco = preco;
     }
+    @JsonIgnore
     public Pedido getPedido(){
         return id.getPedido();
     }
+    //@JsonIgnore
     public Produto getProduto(){
         return id.getProduto();
     }

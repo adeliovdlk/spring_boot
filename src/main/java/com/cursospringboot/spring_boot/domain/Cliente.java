@@ -1,6 +1,7 @@
 package com.cursospringboot.spring_boot.domain;
 
 import com.cursospringboot.spring_boot.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -34,6 +35,7 @@ public class Cliente implements Serializable {
     private Set<String> telefones= new HashSet<>();
 
     //lista de pedidos
+    @JsonBackReference  //os pedidos de um cliente nao serao serializados
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 

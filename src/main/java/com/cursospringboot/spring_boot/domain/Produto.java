@@ -1,5 +1,7 @@
 package com.cursospringboot.spring_boot.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -21,6 +23,7 @@ public class Produto implements Serializable {
     private List<Categoria> categorias= new ArrayList<>();
 
     //para q o produto tbm conheca os itens associados a ele
+    @JsonIgnore
     @OneToMany(mappedBy = "id.produto")
     private Set<ItemPedido> itens=new HashSet<>();
 
@@ -42,6 +45,7 @@ public class Produto implements Serializable {
     public void setItens(Set<ItemPedido> itens) {
         this.itens = itens;
     }
+    @JsonIgnore //para nao serializar essa lista
     public List<Pedido> getPedidos(){
         List<Pedido> lista = new ArrayList<>();
         for (ItemPedido x: itens){
