@@ -1,5 +1,7 @@
 package com.cursospringboot.spring_boot.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ public class Categoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    //@JsonManagedReference foi substituido pelo @JsonIgnore
     @ManyToMany(mappedBy = "categorias")
     private List<Produto> produtos=new ArrayList<>();
 

@@ -1,7 +1,6 @@
 package com.cursospringboot.spring_boot.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,11 +18,11 @@ public class Pedido implements Serializable {
     @JsonFormat (pattern = "dd/MM/yyyy HH:mm")
     private Date instante;
 
-    @JsonManagedReference
+    //@JsonManagedReference foi substituido pelo @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "pedido")//mapeamento bidirecional um para um garantindo que o id do pagamento e mesmo id do pedido referente a ele
     private Pagamento pagamento;
 
-    @JsonManagedReference
+    //@JsonManagedReference foi substituido pelo @JsonIgnore
     @ManyToOne
     @JoinColumn(name ="cliente_id" )  //nome da chave estrangeira
     private Cliente cliente;

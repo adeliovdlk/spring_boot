@@ -15,6 +15,7 @@ public class Produto implements Serializable {
     private String name;
     private  Double preco;
 //ver se vai get set categorias
+    @JsonIgnore
     @ManyToMany
     @JoinTable  (name = "PRODUTO_CATEGORIA",
         joinColumns = @JoinColumn(name = "produto_d"),

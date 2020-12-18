@@ -13,7 +13,7 @@ public class Cidade implements Serializable {
     private Long id;
     private String name;
 
-    @JsonManagedReference
+   // @JsonManagedReference foi substituido pelo jsoningnore
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private Estado estado;
